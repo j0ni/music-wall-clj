@@ -5,7 +5,8 @@
             [duct.middleware.errors :refer [wrap-hide-errors]]
             [meta-merge.core :refer [meta-merge]]
             [music-wall.config :as config]
-            [music-wall.system :refer [new-system]]))
+            [music-wall.system :refer [new-system]]
+            [taoensso.timbre :refer [infof]]))
 
 (def prod-config
   {:app {:middleware     [[wrap-hide-errors :internal-error]]
@@ -18,5 +19,5 @@
 
 (defn -main [& args]
   (let [system (new-system config)]
-    (println "Starting HTTP server on port" (-> system :http :port))
+    (infof "Starting HTTP server on port %d" (-> system :http :port))
     (component/start system)))

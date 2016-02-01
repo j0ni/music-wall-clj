@@ -14,11 +14,24 @@
                  [ring/ring-defaults "0.1.5"]
                  [ring-jetty-component "0.3.0"]
                  [ring-webjars "0.1.1"]
-                 [org.slf4j/slf4j-nop "1.7.12"]
+                 [org.slf4j/slf4j-nop "1.7.14"]
                  [org.webjars/normalize.css "3.0.2"]
                  [duct/hikaricp-component "0.1.0"]
                  [org.postgresql/postgresql "9.4-1203-jdbc4"]
-                 [duct/ragtime-component "0.1.3"]]
+                 [duct/ragtime-component "0.1.3"]
+                 [org.clojure/tools.logging "0.3.1"]
+                 [org.clojure/java.jdbc "0.4.2"]
+                 [honeysql "0.6.2"]
+                 [prismatic/schema "1.0.4"]
+                 [com.taoensso/timbre "4.2.1"]
+                 [com.fzakaria/slf4j-timbre "0.3.0"]
+                 [org.slf4j/log4j-over-slf4j "1.7.14"]
+                 [org.slf4j/jul-to-slf4j "1.7.14"]
+                 [org.slf4j/jcl-over-slf4j "1.7.14"]
+                 [reagent "0.6.0-alpha"]
+                 [hiccup "1.0.5"]
+                 [cljs-ajax "0.5.3"]
+                 [ring-middleware-format "0.7.0"]]
   :plugins [[lein-environ "1.0.1"]
             [lein-gen "0.2.2"]
             [lein-cljsbuild "1.1.2"]]
@@ -45,7 +58,10 @@
    :test [:project/test :profiles/test]
    :repl {:resource-paths ^:replace ["resources" "target/figwheel"]
           :prep-tasks     ^:replace [["javac"] ["compile"]]}
-   :uberjar {:aot :all}
+   :uberjar {:aot :all
+             :cljsbuild
+             {:builds {:app {:source-paths ["prod"]
+                             :compiler {:optimizations :advanced :pretty-print false}}}}}
    :profiles/dev  {}
    :profiles/test {}
    :project/dev   {:dependencies [[reloaded.repl "0.2.1"]

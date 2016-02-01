@@ -10,26 +10,33 @@
             [meta-merge.core :refer [meta-merge]]
             [ring.component.jetty :refer [jetty-server]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
-            [ring.middleware.webjars :refer [wrap-webjars]]))
+            [ring.middleware.webjars :refer [wrap-webjars]]
+            [music-wall.endpoint.songs :refer [songs-endpoint]]
+            [music-wall.endpoint.root :refer [root-endpoint]]
+            [ring.middleware.format :refer [wrap-restful-format]]))
 
 (def base-config
-  {:app {:middleware [[wrap-not-found :not-found]
+  {:app {:middleware [[wrap-restful-format]
+                      [wrap-not-found :not-found]
                       [wrap-webjars]
                       [wrap-defaults :defaults]
                       [wrap-route-aliases :aliases]]
-         :not-found  (io/resource "music_wall/errors/404.html")
-         :defaults   (meta-merge site-defaults {:static {:resources "music_wall/public"}})
-         :aliases    {"/" "/index.html"}}
+         :not-found (io/resource "music_wall/errors/404.html")
+         :defaults (meta-merge site-defaults {:static {:resources "music_wall/public"}})
+         :aliases {}}
    :ragtime {:resource-path "music_wall/migrations"}})
 
 (defn new-system [config]
   (let [config (meta-merge base-config config)]
     (-> (component/system-map
-         :app  (handler-component (:app config))
-         :http (jetty-server (:http config))
-         :db   (hikaricp (:db config))
-         :ragtime (ragtime (:ragtime config)))
+          :app (handler-component (:app config))
+          :http (jetty-server (:http config))
+          :db (hikaricp (:db config))
+          :ragtime (ragtime (:ragtime config))
+          :root (endpoint-component root-endpoint)
+          :songs (endpoint-component songs-endpoint))
         (component/system-using
-         {:http [:app]
-          :app  []
-          :ragtime [:db]}))))
+          {:http [:app]
+           :app [:songs :root]
+           :songs [:db]
+           :ragtime [:db]}))))
