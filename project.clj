@@ -15,6 +15,7 @@
                  [ring-jetty-component "0.3.0"]
                  [ring-webjars "0.1.1"]
                  [org.webjars/normalize.css "3.0.2"]
+                 [org.slf4j/slf4j-nop "1.7.14"]
                  [duct/hikaricp-component "0.1.0" :exclusions [org.slf4j/slf4j-nop]]
                  [org.postgresql/postgresql "9.4-1203-jdbc4"]
                  [duct/ragtime-component "0.1.3"]
@@ -23,10 +24,12 @@
                  [honeysql "0.6.2"]
                  [prismatic/schema "1.0.4"]
                  [com.taoensso/timbre "4.2.1"]
-                 [com.fzakaria/slf4j-timbre "0.3.0"]
-                 [org.slf4j/log4j-over-slf4j "1.7.14"]
-                 [org.slf4j/jul-to-slf4j "1.7.14"]
-                 [org.slf4j/jcl-over-slf4j "1.7.14"]
+                 ;; hikaricp and jetty are super noisy - enable these
+                 ;; if we need to look at those logs only
+                 ;; [com.fzakaria/slf4j-timbre "0.3.0"]
+                 ;; [org.slf4j/log4j-over-slf4j "1.7.14"]
+                 ;; [org.slf4j/jul-to-slf4j "1.7.14"]
+                 ;; [org.slf4j/jcl-over-slf4j "1.7.14"]
                  [reagent "0.6.0-alpha"]
                  [hiccup "1.0.5"]
                  [cljs-ajax "0.5.3"]
@@ -59,8 +62,9 @@
           :prep-tasks     ^:replace [["javac"] ["compile"]]}
    :uberjar {:aot :all
              :cljsbuild
-             {:builds {:app {:source-paths ["prod"]
-                             :compiler {:optimizations :advanced :pretty-print false}}}}}
+             {:builds {:main {:source-paths ["prod"]
+                              :compiler {:optimizations :advanced
+                                         :pretty-print false}}}}}
    :profiles/dev  {}
    :profiles/test {}
    :project/dev   {:dependencies [[reloaded.repl "0.2.1"]
