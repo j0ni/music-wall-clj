@@ -1,10 +1,15 @@
 (ns music-wall.endpoint.root-test
   (:require [clojure.test :refer :all]
-            [music-wall.endpoint.root :as root]))
+            [music-wall.endpoint.root :as root]
+            [ring.mock.request :as mock]))
 
 (def handler
   (root/root-endpoint {}))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest root-page-works
+  (testing "route returns a successful response"
+    (let [response (handler (mock/request :get "/"))]
+      (is (= 200 (:status response)))))
+  (testing "the page invokes the app"
+    (let [response (handler (mock/request :get "/"))]
+      (is (re-find #"music_wall\.frontend\.songs" (:body response))))))

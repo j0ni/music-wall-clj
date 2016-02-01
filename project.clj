@@ -70,7 +70,9 @@
                                   [kerodon "0.7.0"]
                                   [com.cemerick/piggieback "0.2.1"]
                                   [duct/figwheel-component "0.3.1"]
-                                  [figwheel "0.5.0-1"]]
+                                  [figwheel "0.5.0-1"]
+                                  [bond "0.2.6"]
+                                  [ring/ring-mock "0.3.0"]]
                    :source-paths ["dev"]
                    :repl-options {:init-ns user
                                   :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
