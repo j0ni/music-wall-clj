@@ -1,0 +1,10 @@
+{
+  "name": "music-wall-clj",
+  "scripts": {
+  },
+  "env": {
+  },
+  "addons": [
+    "heroku-postgresql"
+  ]
+}
