@@ -15,7 +15,7 @@
                  [ring-jetty-component "0.3.0"]
                  [ring-webjars "0.1.1"]
                  [org.webjars/normalize.css "3.0.2"]
-                 [duct/hikaricp-component "0.1.0"]
+                 [duct/hikaricp-component "0.1.0" :exclusions [org.slf4j/slf4j-nop]]
                  [org.postgresql/postgresql "9.4-1203-jdbc4"]
                  [duct/ragtime-component "0.1.3"]
                  [org.clojure/tools.logging "0.3.1"]
