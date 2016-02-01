@@ -1,1 +1,1 @@
-web: java -jar target/music-wall-standalone.jar
+web: java -jar target/uberjar/music-wall-standalone.jar

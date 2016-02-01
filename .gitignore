@@ -6,6 +6,7 @@ pom.xml.asc
 *.jar
 *.class
 /.lein-*
+/.env
 /.nrepl-port
 /profiles.clj
 dev/local.clj
