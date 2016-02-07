@@ -48,8 +48,9 @@
   {:builds
    {:main {:jar true
            :source-paths ["src"]
-           :compiler {:output-to "target/cljsbuild/music_wall/public/js/main.js"
-                      :optimizations :advanced}}}}
+           :compiler
+           {:output-to "target/cljsbuild/music_wall/public/js/main.js"
+            :optimizations :none}}}}
   :aliases {"gen"   ["generate"]
             "setup" ["do" ["generate" "locals"]]
             "deploy" ["do"
