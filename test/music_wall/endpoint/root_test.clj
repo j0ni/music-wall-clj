@@ -12,4 +12,4 @@
       (is (= 200 (:status response)))))
   (testing "the page invokes the app"
     (let [response (handler (mock/request :get "/"))]
-      (is (re-find #"music_wall\.frontend\.songs" (:body response))))))
+      (is (re-find #"tickety tock" (:body response))))))
